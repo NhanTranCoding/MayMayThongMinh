@@ -1,0 +1,242 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content%}
+{% load humanize %}
+    <div class="banner">
+        <div class="container resize-container">
+            <ul class="slide-bar">
+                <li>
+                    <i class="fa-sharp fa-solid fa-caret-right"></i>
+                    <a href="#">MÁY MAY CÔNG NGHIỆP</a>
+                    <ul class="sub-menu">
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=ricca">Riccar</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=brother">Brother</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=singer">Singer</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=janome">Janome</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=juki">Juki</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=jaguar">Jaguar</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="/search/?search_prod=maymaygiare">Máy may giá rẻ</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="fa-sharp fa-solid fa-caret-right"></i>
+                    <a href="#">MÁY CỔ ĐIỂN</a>
+                </li>
+                <li>
+                    <i class="fa-sharp fa-solid fa-caret-right"></i>
+                    <a href="#">MÁY VĂT SỔ</a>
+                    <ul class="sub-menu">
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="#">Vắt sổ công nghiệp</a>
+                        </li>
+                        <li>
+                            <i class="fa-sharp fa-solid fa-caret-right"></i>
+                            <a href="#">Vắt sổ gia đình</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="fa-sharp fa-solid fa-caret-right"></i>
+                    <a href="#">PHỤ KIỆN, THIẾT BỊ</a>
+                </li>
+            </ul>
+            <div class="slide-banner">
+                <div class="wrapper-banner">
+                    <div class="slide-banner-images">
+                        <img class="image_banner" src="{%static 'app/img/header/bn1.jpg'%}" alt="">
+                        <img class="image_banner" src="{%static 'app/img/header/bn2.jpg'%}" alt="">
+                        <img class="image_banner" src="{%static 'app/img/header/bn3.jpg'%}" alt="">
+                        <img class="image_banner" src="{%static 'app/img/header/bn4.jpg'%}" alt="">
+                    </div>
+                </div>
+                <div class="arrow-banner">
+                    <button class="btn-banner-left"><i class="fa-solid fa-angle-left"></i></button>
+                    <button class="btn-banner-right"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="products">
+        <div class="container">
+            <h1 class="title-products">SẢN PHẨM MỚI VỀ</h1>
+            <div class="row-product" id="row-product1">
+                {% comment %} {% for product in products_new%}
+                    <div class="products-box" >
+                        <div class="product-img">
+                            <a href="{%url 'product_details' product_id=product.product_id %}"><img src="{{product.image.url}}" alt="Image not display"></a>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">
+                                <a href="product_details/{{product.product_id}}">
+                                    <h3>{{product.name}}</h3>
+                                </a>
+                            </div>
+                            <div class="product-price">
+                                <p class="price-current">Giá <span>{{product.price_currency|intcomma}}VND</span></p>
+                                <p class="price-old"><span>{{product.price|intcomma}} VND</span></p>
+                            </div>
+                        </div>
+                        <div class="product-contact">
+                            {% if product.status == True%}
+                                <p class="have-product">Còn hàng</p>
+                            {%else%}
+                                <p class="have-product">Hết hàng</p>
+                            {% endif%}
+                            <p class="contact-to-buy">
+                                <a href="#">Liên hệ</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %} {% endcomment %}
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination pagi1">  
+        <ul class="wrapper">
+            <li class="pg__prev"><<</li>
+            <li class="active pg__item" value="1">1</li>
+            <li class="pg__item" value="2">2</li>
+            <li class="pg__item" value="3">3</li>
+            <li class="pg__next">>></li>
+        </ul>
+    </div>
+    <div class="products products-outstand">
+        <div class="container">
+            <h1 class="title-products">SẢN PHẨM CŨ</h1>
+            <div class="row-product" id="row-product2">
+                {% comment %} {% for product in products_old%}
+                    <div class="products-box" >
+                        <div class="product-img">
+                            <a href="{%url 'product_details' product_id=product.product_id %}"><img src="{{product.image.url}}" alt="Image not display"></a>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">
+                                <a href="product_details/{{product.product_id}}">
+                                    <h3>{{product.name}}</h3>
+                                </a>
+                            </div>
+                            <div class="product-price">
+                                <p class="price-current">Giá <span>{{product.price_currency|intcomma}}VND</span></p>
+                                <p class="price-old"><span>{{product.price|intcomma}} VND</span></p>
+                            </div>
+                        </div>
+                        <div class="product-contact">
+                            {% if product.status == True%}
+                                <p class="have-product">Còn hàng</p>
+                            {%else%}
+                                <p class="have-product">Hết hàng</p>
+                            {% endif%}
+                            <p class="contact-to-buy">
+                                <a href="#">Liên hệ</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}  {% endcomment %}
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <div class="pagination pagi2">
+        <ul class="wrapper">
+            <li class="pg2__prev"><<</li>
+            <li class="active pg2__item" value="1">1</li>
+            <li class="pg2__item" value="2">2</li>
+            <li class="pg2__item" value="3">3</li>
+            <li class="pg2__next">>></li>
+        </ul>
+    </div>
+    
+    <div class="bottom-content">
+        <div class="container">
+            <div class="connect-product">
+                <h2 class="title">LIÊN KẾT</h2>
+                <div class="mota-page">
+                    <p><strong>Riccar H50E mới chính hãn thương hiệu Nhật Bản</strong></p>
+                    <p><strong>Ưu tiên chất lượng lên hàng đầu</strong></p>
+                </div>
+                <div class="link-product">
+                    <a href="#">
+                        <img src="{% static 'app/img/product/contact_product_img.jpg' %}" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="video-product">
+                <h2 class="title">VIDEO</h2>
+                <div class="video">
+                    <div class="main-video">
+                        <iframe name="video_main" width="560" height="315" src="https://www.youtube.com/embed/K5jw1LijEI4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="list-video">    
+                        <ul class="box-list-video">
+                            <li class="image-video"><a target="video_main" href="https://www.youtube.com/embed/YIH89pG2ze0?si=UTHBv-2uvlX21OWH"><img src="{% static 'app/img/product/p2.jpg'%}" alt=""></a></li>
+                            <li><a target="video_main" href="https://www.youtube.com/embed/R7B6J_Ln5Gk?si=EURlPdh9jzD9dPhU"><img src="{% static 'app/img/product/p4.jpg'%}" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="brand">
+        <div class="container">
+            <div class="box-brand">
+                <div class="brand-name">
+                    <a href="/search/?search_prod=brother"><img src="{% static 'app/img/brand/b1.jpg'%}" alt=""></a>
+                </div>
+                <div class="brand-name">
+                    <a href="/search/?search_prod=singer"><img src="{% static 'app/img/brand/b2.jpg'%}" alt=""></a>
+                </div>
+                <div class="brand-name">
+                    <a href="/search/?search_prod=juki"><img src="{% static 'app/img/brand/b3.jpg'%}" alt=""></a>
+                </div>
+                <div class="brand-name">
+                    <a href="/search/?search_prod=janome"><img src="{% static 'app/img/brand/b4.jpg'%}" alt=""></a>
+                </div>
+                <div class="brand-name">
+                    <a href="/search/?search_prod=riccar"><img src="{% static 'app/img/brand/b5.jpeg'%}" alt=""></a>
+                </div>
+                <div class="brand-name">
+                    <a href="/search/?search_prod=jaguar"><img src="{% static 'app/img/brand/b6.jpg'%}" alt=""></a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock content%}
+
+{%block script%}
+    <!-- JS  -->
+    <script type="module" src="{%static 'app/js/slibar.js'%}"></script>
+    <script type="module" src="{%static 'app/js/script.js'%}"></script>
+    <script  src="{%static 'app/js/api.js'%}"></script>
+{%endblock script%}
+
+    

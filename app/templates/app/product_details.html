@@ -1,0 +1,159 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load custom_tags %}
+{% block content%}
+    <div class="container">
+        <div class="main_product_detail_page">
+            <div class="box-infor-product">
+                <div class="left-box">
+                    <img id="img-original" class="product__main-img" src="{{product.image.url}}" alt="">
+                    <div id="img-zoom" class="img-zoom-result"> </div>
+                    <div id="lens" class="img-zoom-lens"> </div>
+                    <div class="list-img-product">
+                        {% for item in list_image_mini%} 
+                            <img class="img-product-mini" src="{{item.image.url}}" alt="">
+                        {% endfor%}
+                    </div>
+                </div>
+                <div class="right-box">
+                    <h3>{{product.name}}</h3>
+                    <p><strong>MASP: </strong>{{product.product_id}}</p>
+                    <p><strong>Tình trạng: </strong>{% if product.status == True%} Còn hàng {%else%} Hết hàng {%endif%}</p>
+                    <p><strong>Lượt xem: </strong>{{product.view_product}}</p>
+                    <p><strong>Phạm vi: </strong>{{product.description}}</p>
+                </div>
+                
+                
+            </div>
+            <div class="technical__spe">
+                <div class="title">
+                    <h3>CHI TIẾT - CÔNG DỤNG SẢN PHẨM</h3>
+                </div>
+                <div class="content-tech-video">
+                    <div class="technical__spe-content">
+                        <p>{{product.content|safe}}</p>
+                    </div>
+                    <div class="video-detail">
+                        {%if product.video.url != ""%}
+                        <video width="320" height="240" controls>
+                            
+                            <source src="{{product.video.url}}" type="video/mp4">
+                        </video>
+                        {% endif%}
+                    </div>
+                </div>
+                
+            </div>
+            <div class="product-quality-review">
+                <h5>ĐÁNH GIÁ SẢN PHẨM ({{reviews|length}})</h5>
+                <div class="box-review">
+                    <div class="show-review">
+                        {% for item in reviews %}
+                            <div class="bow_review">
+                                <div class="infor-review">
+                                    <div class="user_date_review">
+                                        <span>
+                                            <i class="fa-solid fa-user"></i>
+                                            {{item.user}}
+                                        </span>
+                                        <span>
+                                            <i class="fa-regular fa-clock"></i>
+                                            {{item.created_date}}
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="star">
+                                        {% for star in item.rate %}
+                                            <input type="radio" name="rate" id="rate" style="display: none;">
+                                            <label for="rate" class="rate fa-solid fa-star" id="star" style="color: #fd4;"></label>
+                                        {%endfor%}
+                                        {%if item.rate|length < 5%}
+                                            {% for star in "*****" %}
+                                                {% with rate_good=item.rate|length %}
+                                                    {% with rate_bad=max_rate|subtract:rate_good %}
+                                                        {%if forloop.counter <= rate_bad%}
+                                                        <input type="radio" name="rate" id="rate" style="display: none;">
+                                                        <label for="rate" class="rate fa-solid fa-star"></label>
+                                                        {%endif%}
+                                                    {% endwith %}
+                                                {% endwith %}
+                                                
+                                            {%endfor%}
+                                            
+                                        {%endif%}
+                                    </div>
+                                </div>
+                                <div class="content-review">
+                                    {{item.comment}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <form action="/review" method="GET">
+                        <input type="hidden" value="{{product.product_id}}" name="product_id">
+                        <div class="star-widget">
+                            <input type="radio" name="rate" id="rate-5" value="5">
+                            <label for="rate-5" class="rate fa-solid fa-star" id="star5"></label>
+                            <input type="radio" name="rate" id="rate-4" value="4">
+                            <label for="rate-4" class="rate fa-solid fa-star" id="star4"></label>
+                            <input type="radio" name="rate" id="rate-3" value="3">
+                            <label for="rate-3" class="rate fa-solid fa-star" id="star3"></label>
+                            <input type="radio" name="rate" id="rate-2" value="2">
+                            <label for="rate-2" class="rate fa-solid fa-star" id="star2"></label>
+                            <input type="radio" name="rate" id="rate-1" value="1">
+                            <label for="rate-1" class="rate fa-solid fa-star" id="star1"></label>
+                        </div>  
+                        <h6 class="emotion"></h6>
+                        <input id="user" type="text" name="user" placeholder="Họ Và Tên:..." required>
+                        <div class="text-comment">
+                            <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Comment here..." required></textarea>
+                        </div>
+                        <div class="btn btn-submit-comment">
+                            <button type="submit">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="other_products_related">
+                <h3 class="title">SẢN PHẨM LIÊN QUAN</h3>
+                <div class="row-product">
+                    {% for product in products_related %}
+                        <div class="products-box">
+                            <div class="product-img">
+                                <a href="{%url 'product_details' product_id=product.product_id%}"><img src="{{product.image.url}}" alt="Image not display"></a>
+                            </div>
+                            <div class="product-details">
+                                <div class="product-name">
+                                    <a href="product_details/{{product.product_id}}">
+                                        <h3>{{product.name}}</h3>
+                                    </a>
+                                </div>
+                                <div class="product-price">
+                                    <p class="price-current">Giá <span>{{product.price_currency|intcomma}}VND</span></p>
+                                    <p class="price-old"><span>{{product.price|intcomma}} VND</span></p>
+                                </div>
+                            </div>
+                            <div class="product-contact">
+                                {% if product.status == True%}
+                                    <p class="have-product">Còn hàng</p>
+                                {%else%}
+                                    <p class="have-product">Hết hàng</p>
+                                {% endif%}
+                                <p class="contact-to-buy">
+                                    <a href="#">Liên hệ</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="other_product"></div>
+    </div>
+{% endblock content%}
+{%block script%}
+    <!-- JS  -->
+    <script src="{%static 'app/js/zoom_image.js'%}"></script>
+    <script type="module" src="{%static 'app/js/script.js'%}"></script>
+{%endblock script%} 

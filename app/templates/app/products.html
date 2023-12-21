@@ -1,0 +1,26 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content%}
+    <div class="products">
+        <div class="container">
+            <h1 class="title-products">SẢN PHẨM {{product}}</h1>
+            <div class="row-product row1-product-page" id="row-product3">
+            </div>
+        </div>
+    </div>
+    <div class="pagination pagi3">
+        <ul class="wrapper">
+            <li class="pg3__prev"><<</li>
+            <li class="active pg3__item" value="1">1</li>
+            <li class="pg3__item" value="2">2</li>
+            <li class="pg3__item" value="3">3</li>
+            <li class="pg3__next">>></li>
+        </ul>
+    </div>
+{% endblock content%}
+{%block script%}
+    <!-- JS  -->
+    <script type="module" src="{%static 'app/js/script.js'%}"></script>
+    <script  src="{%static 'app/js/api_products_page.js'%}"></script>
+{%endblock script%}

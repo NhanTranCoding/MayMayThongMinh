@@ -1,0 +1,76 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content%}
+    <div class="products">
+        <div class="container">
+            <h1 class="title-products">SẢN PHẨM</h1>
+            <div class="row-product row1-product-page" id="row-product1">
+                {% if products|length == 0%}
+                    <h3>Xin lỗi quý khách, mặt hàng này hiện tại chúng tôi chưa bán</h3>
+                    <h4>Quý khách có thể tìm mặt hàng khác.</h4>
+                {% endif%}
+                {% for product in products%}
+                    <div class="products-box">
+                        <div class="product-img">
+                            <a href="{%url 'product_details' product_id=product.product_id %}"><img src="{{product.image.url}}" alt="Image not display"></a>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">
+                                <a href="{%url 'product_details' product_id=product.product_id %}">
+                                    <h3>{{product.name}}</h3>
+                                </a>
+                            </div>
+                            <div class="product-price">
+                                <p class="price-current">Giá <span>{{product.price_currency|intcomma}}VND</span></p>
+                                <p class="price-old"><span>{{product.price|intcomma}} VND</span></p>
+                            </div>
+                        </div>
+                        <div class="product-contact">
+                            {% if product.status == True%}
+                                <p class="have-product">Còn hàng</p>
+                            {%else%}
+                                <p class="have-product">Hết hàng</p>
+                            {% endif%}
+                            <p class="contact-to-buy">
+                                <a href="#">Liên hệ</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if products.has_previous %}
+                <span>
+                    <a href="?page=1">&laquo;</a>
+                    <a href="?page={{ products.previous_page_number }}">prev</a>
+                </span>
+                
+            {% endif %}
+    
+            <span class="current">  
+                <a href="?page=1">1</a>
+                <a href="?page=2">2</a>
+                
+            </span>
+    
+            {% if products.has_next %}
+                <span>
+                    <a href="?page={{ products.next_page_number }}">next</a>
+                    <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+                </span>
+                
+            {% endif %}
+        </span>
+    </div>
+
+
+{% endblock content%}
+{%block script%}
+    <!-- JS  -->
+    <script type="module" src="{%static 'app/js/script.js'%}"></script>
+{%endblock script%}
